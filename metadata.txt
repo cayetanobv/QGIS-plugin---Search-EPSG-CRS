@@ -26,9 +26,9 @@ email=cayetanobv@gmail.com
 # tags are comma separated with spaces allowed
 tags=CRS, EPSG, coordinate reference system, projection, geography, WKT, Proj4, Python
 
-homepage=
+homepage=http://www.geographica.gs/#!/en/geographica/team
 tracker=
-repository=
+repository=https://github.com/cayetanobv/QGIS-plugin---Search-EPSG-CRS
 icon=icon.png
 # experimental flag
 experimental=False

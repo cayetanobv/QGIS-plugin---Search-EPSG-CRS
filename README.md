@@ -9,8 +9,10 @@ The EPSG.io website is built around the official EPSG database maintained by OGP
 
 ##Requirements
 httplib2 python library 
+
 https://github.com/jcgregorio/httplib2
 
 ##About author
 Developed by Cayetano Benavent 2014.
+
 http://www.geographica.gs/#!/en/geographica/team

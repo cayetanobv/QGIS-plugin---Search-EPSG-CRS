@@ -98,14 +98,14 @@ class SearchEpsgCrs:
         layer = iface.activeLayer()
         if layer:
             crs = layer.crs().authid()
-            # extract from result EPSG number code (remove from string "EPSG:")
+            # extracting from result EPSG number code (remove from string "EPSG:")
             self.dlg.setTextCRS(crs[5:])
         else:
             # if no active layer in TOC...
             QMessageBox.information(self.iface.mainWindow(),"Get active layer CRS", "No active layer in the Table of Contents.")
 
     def searchCRS(self):
-        # this function do the CRS search using EPSG.io website
+        # this function does the CRS search using EPSG.io website
         try:
             EPSG = self.dlg.getTextCRS()
             CRS_format = self.dlg.getComboCRS()

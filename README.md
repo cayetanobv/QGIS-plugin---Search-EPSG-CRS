@@ -1,7 +1,7 @@
 #QGIS plugin - Search EPSG CRS
 
 ##About plugin
-Search for a valid CRS on the basis of an EPSG code.
+Search for a valid Coordinate Reference System (CRS) on the basis of an EPSG code.
 
 This plugin uses great website EPSG.io (http://epsg.io/).
 

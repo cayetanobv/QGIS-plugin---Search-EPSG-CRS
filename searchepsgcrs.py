@@ -109,7 +109,7 @@ class SearchEpsgCrs:
         try:
             EPSG = self.dlg.getTextCRS()
             CRS_format = self.dlg.getComboCRS()
-            url = "http://epsg.io/"+ EPSG + CRS_format
+            url = "http://epsg.io/%s%s" % (EPSG, CRS_format)
     
             resp, content = httplib2.Http().request(url)
     
@@ -122,7 +122,7 @@ class SearchEpsgCrs:
             elif not content:
                 return "---No content for this format---"
             
-            return "\t--CRS in " + CRS_format + "--\n\n" + content + "\n"
+            return "\t--CRS in %s--\n\n%s\n" % (CRS_format, content)
 
         except:
             # You must have an Internet connection

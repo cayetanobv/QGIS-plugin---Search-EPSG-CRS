@@ -12,7 +12,7 @@
 name=Search EPSG CRS Plugin
 qgisMinimumVersion=2.0
 description=Search for a valid Coordinate Reference System on the basis of an EPSG code. This plugin uses epsg.io
-version=0.1
+version=0.2
 author=Cayetano Benavent
 email=cayetanobv@gmail.com
 

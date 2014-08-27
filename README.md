@@ -19,11 +19,11 @@ You can install with pip:
 $ pip install httplib2
 ```
 
-- On Windows*:
+- On Windows(*):
 ```
 python -m pip install httplib2
 ```
-* If you have not installed pip on your computer download get-pip.py from http://pip.readthedocs.org/en/latest/installing.html
+(*)If you have not installed pip on your computer download get-pip.py from http://pip.readthedocs.org/en/latest/installing.html
 ```
 python get-pip.py
 ```

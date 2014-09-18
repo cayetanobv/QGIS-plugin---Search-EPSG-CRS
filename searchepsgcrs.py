@@ -32,7 +32,7 @@ import resources_rc
 from searchepsgcrsdialog import SearchEpsgCrsDialog
 # Other imports
 import os.path
-import httplib2
+import urllib
 import re
 
 
@@ -110,8 +110,9 @@ class SearchEpsgCrs:
             EPSG = self.dlg.getTextCRS()
             CRS_format = self.dlg.getComboCRS()
             url = "http://epsg.io/%s%s" % (EPSG, CRS_format)
-    
-            resp, content = httplib2.Http().request(url)
+            
+            url_open = urllib.urlopen(url)
+            content = url_open.read()
     
             if re.search("Sorry, that page cannot be found", content):
                 return "---Error: Wrong EPSG code.---\n"

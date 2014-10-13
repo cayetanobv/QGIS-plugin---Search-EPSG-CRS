@@ -11,14 +11,7 @@
 [general]
 name=Search EPSG CRS Plugin
 qgisMinimumVersion=2.0
-description=
-
-Search for a valid Coordinate Reference System (CRS) on the basis of an EPSG code.
-
-This plugin uses great website EPSG.io (http://epsg.io/).
-
-The EPSG.io website is built around the official EPSG database maintained by OGP Geomatics Committee.
-
+description=Search for a valid Coordinate Reference System (CRS) on the basis of an EPSG code. This plugin uses great website EPSG.io (http://epsg.io/). The EPSG.io website is built around the official EPSG database maintained by OGP Geomatics Committee.
 version=0.3
 author=Cayetano Benavent
 email=cayetanobv@gmail.com
@@ -31,7 +24,9 @@ email=cayetanobv@gmail.com
 changelog=
 	0.2 Minor updates.
 	
-	0.3 Major update. Replace libraries: httplib2 (external) by urllib (PSL).	
+	0.3 Major update. Replace libraries: httplib2 (external) by urllib (PSL).
+	
+	0.4 Major update. New GUI.
 
 # tags are comma separated with spaces allowed
 tags=CRS, EPSG, coordinate reference system, projection, geography, WKT, Proj4, Python

@@ -29,7 +29,7 @@ from qgis.utils import *
 # Initialize Qt resources from file resources.py
 import resources_rc
 # Import the code for the dialog
-from searchepsgcrsdialog import SearchEpsgCrsDialog
+from searchepsgcrsdialog import SearchEpsgCrsDock
 # Other imports
 import os.path
 import urllib
@@ -55,7 +55,7 @@ class SearchEpsgCrs:
                 QCoreApplication.installTranslator(self.translator)
 
         # Create the dialog (after translation) and keep reference
-        self.dlg = SearchEpsgCrsDialog()
+        self.dock = SearchEpsgCrsDock()
 
     def initGui(self):
         # Create action that will start plugin configuration
@@ -68,11 +68,14 @@ class SearchEpsgCrs:
         # Add toolbar button and menu item
         self.iface.addToolBarIcon(self.action)
         self.iface.addPluginToMenu(u"&Search EPSG CRS Plugin", self.action)
+        
+        # Add dock dialog to the right
+        self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock)
 
         # connecting buttons and functions
-        QObject.connect(self.dlg.pushButton, SIGNAL("clicked()"), self.getCRSResult)
-        QObject.connect(self.dlg.pushButton_2, SIGNAL("clicked()"), self.setActLayerCRS)
-        QObject.connect(self.dlg.pushButton_3, SIGNAL("clicked()"), self.about)
+        QObject.connect(self.dock.pushButton, SIGNAL("clicked()"), self.getCRSResult)
+        QObject.connect(self.dock.pushButton_2, SIGNAL("clicked()"), self.setActLayerCRS)
+        QObject.connect(self.dock.pushButton_3, SIGNAL("clicked()"), self.about)
 
     def unload(self):
         # Remove the plugin menu item and icon
@@ -81,17 +84,11 @@ class SearchEpsgCrs:
 
     def run(self):
         # show the dialog
-        self.dlg.show()
-
-        # Run the dialog event loop
-        result = self.dlg.exec_()
-        # See if OK was pressed
-        if result == 1:
-            pass
+        self.dock.show()
 
     def getCRSResult(self):
-        self.dlg.clearTextBrowser()
-        self.dlg.setTextBrowser(self.searchCRS())
+        self.dock.clearTextBrowser()
+        self.dock.setTextBrowser(self.searchCRS())
 
     def setActLayerCRS(self):
         # get active layer Coordinate Reference System
@@ -99,7 +96,7 @@ class SearchEpsgCrs:
         if layer:
             crs = layer.crs().authid()
             # extracting from result EPSG number code (remove from string "EPSG:")
-            self.dlg.setTextCRS(crs[5:])
+            self.dock.setTextCRS(crs[5:])
         else:
             # if no active layer in TOC...
             QMessageBox.information(self.iface.mainWindow(),"Get active layer CRS", "No active layer in the Table of Contents.")
@@ -107,8 +104,8 @@ class SearchEpsgCrs:
     def searchCRS(self):
         # this function does the CRS search using EPSG.io website
         try:
-            EPSG = self.dlg.getTextCRS()
-            CRS_format = self.dlg.getComboCRS()
+            EPSG = self.dock.getTextCRS()
+            CRS_format = self.dock.getComboCRS()
             url = "http://epsg.io/%s%s" % (EPSG, CRS_format)
             
             url_open = urllib.urlopen(url)

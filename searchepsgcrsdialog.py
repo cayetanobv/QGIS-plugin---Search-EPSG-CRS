@@ -33,10 +33,16 @@ class SearchEpsgCrsDock(QtGui.QDockWidget, Ui_SearchEPSGCRS_dock):
         self.setupUi(self)
 
     def setTextBrowser(self, output):
-        self.txtFeedback.setText(output)
+        self.txtResults1.setText(output)
 
     def clearTextBrowser(self):
-        self.txtFeedback.clear()
+        self.txtResults1.clear()
+    
+    def setTextBrowser2(self, output):
+        self.txtResults2.setText(output)
+
+    def clearTextBrowser2(self):
+        self.txtResults2.clear()
 
     def setTextCRS(self, output):
         self.txtCRS.setText(output)

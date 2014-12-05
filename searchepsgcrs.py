@@ -73,9 +73,10 @@ class SearchEpsgCrs:
         self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock)
 
         # connecting buttons and functions
-        QObject.connect(self.dock.pushButton, SIGNAL("clicked()"), self.getCRSResult)
-        QObject.connect(self.dock.pushButton_2, SIGNAL("clicked()"), self.setActLayerCRS)
-        QObject.connect(self.dock.pushButton_3, SIGNAL("clicked()"), self.about)
+        QObject.connect(self.dock.FormattedCRSButton, SIGNAL("clicked()"), self.getCRSResult)
+        QObject.connect(self.dock.getEPSGActiveLayerButton, SIGNAL("clicked()"), self.setActLayerCRS)
+        QObject.connect(self.dock.transfCRSButton, SIGNAL("clicked()"), self.getCRSResult2)
+        QObject.connect(self.dock.aboutButton, SIGNAL("clicked()"), self.about)
 
     def unload(self):
         # Remove the plugin menu item and icon
@@ -89,6 +90,10 @@ class SearchEpsgCrs:
     def getCRSResult(self):
         self.dock.clearTextBrowser()
         self.dock.setTextBrowser(self.searchCRS())
+    
+    def getCRSResult2(self):
+        self.dock.clearTextBrowser2()
+        self.dock.setTextBrowser2(self.searchCRSTransform())
 
     def setActLayerCRS(self):
         # get active layer Coordinate Reference System
@@ -126,6 +131,36 @@ class SearchEpsgCrs:
             # You must have an Internet connection
             return "---Error: something didn't work---\nDo you have an Internet connection?"
 
+    def searchCRSTransform(self):
+        # this function does the CRS transform search using EPSG.io API
+        try:
+            EPSG = self.dock.getTextCRS()
+            url = "http://epsg.io/?q=%s&format=json&trans=1" % (EPSG)
+    
+            url_open = urllib.urlopen(url)
+            content = url_open.read()
+            
+            json_results = json.loads(content)
+            
+            if json_results['number_result'] == 0:
+                return "---Error: Wrong EPSG code.---\n"
+
+            else:
+                crs_transf = json_results['results'][0]['trans']
+                default_trans = json_results['results'][0]['default_trans']
+                txtTransf = 'No. of CRS transformations: %i\n' % (len(crs_transf))
+                if len(crs_transf) > 0:
+                    for tr in crs_transf:
+                        str_transf = '- %s / (Accuracy: %s)' % (tr['name'], str(tr['accuracy']))
+                        if default_trans == tr['code_trans']:
+                            str_transf += ' / DEFAULT'
+                        txtTransf += str_transf
+                    
+                    return txtTransf
+        
+        except:
+            return "---Error: something didn't work---"
+    
     def about(self):
         QMessageBox.about(self.iface.mainWindow(),"About", 
             """

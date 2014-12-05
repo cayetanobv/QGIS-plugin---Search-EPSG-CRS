@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_searchepsgcrs.ui'
 #
-# Created: Fri Dec  5 23:51:36 2014
+# Created: Sat Dec  6 00:20:35 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -32,7 +32,7 @@ class Ui_SearchEPSGCRS_dock(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(SearchEPSGCRS_dock.sizePolicy().hasHeightForWidth())
         SearchEPSGCRS_dock.setSizePolicy(sizePolicy)
-        SearchEPSGCRS_dock.setMinimumSize(QtCore.QSize(300, 300))
+        SearchEPSGCRS_dock.setMinimumSize(QtCore.QSize(322, 300))
         self.dockWidgetContents = QtGui.QWidget()
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Ubuntu"))

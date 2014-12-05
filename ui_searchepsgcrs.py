@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_searchepsgcrs.ui'
 #
-# Created: Fri Dec  5 20:03:20 2014
+# Created: Fri Dec  5 23:51:36 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,12 +26,13 @@ except AttributeError:
 class Ui_SearchEPSGCRS_dock(object):
     def setupUi(self, SearchEPSGCRS_dock):
         SearchEPSGCRS_dock.setObjectName(_fromUtf8("SearchEPSGCRS_dock"))
-        SearchEPSGCRS_dock.resize(322, 575)
+        SearchEPSGCRS_dock.resize(322, 606)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(SearchEPSGCRS_dock.sizePolicy().hasHeightForWidth())
         SearchEPSGCRS_dock.setSizePolicy(sizePolicy)
+        SearchEPSGCRS_dock.setMinimumSize(QtCore.QSize(300, 300))
         self.dockWidgetContents = QtGui.QWidget()
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Ubuntu"))
@@ -56,7 +57,7 @@ class Ui_SearchEPSGCRS_dock(object):
         self.txtCRS.setMaxLength(10)
         self.txtCRS.setObjectName(_fromUtf8("txtCRS"))
         self.getEPSGActiveLayerButton = QtGui.QPushButton(self.dockWidgetContents)
-        self.getEPSGActiveLayerButton.setGeometry(QtCore.QRect(15, 51, 270, 30))
+        self.getEPSGActiveLayerButton.setGeometry(QtCore.QRect(15, 51, 291, 30))
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -65,12 +66,9 @@ class Ui_SearchEPSGCRS_dock(object):
         self.getEPSGActiveLayerButton.setMinimumSize(QtCore.QSize(270, 30))
         self.getEPSGActiveLayerButton.setMaximumSize(QtCore.QSize(16777215, 30))
         self.getEPSGActiveLayerButton.setObjectName(_fromUtf8("getEPSGActiveLayerButton"))
-        self.aboutButton = QtGui.QPushButton(self.dockWidgetContents)
-        self.aboutButton.setGeometry(QtCore.QRect(9, 511, 301, 30))
-        self.aboutButton.setMinimumSize(QtCore.QSize(270, 30))
-        self.aboutButton.setObjectName(_fromUtf8("aboutButton"))
         self.tabWidget = QtGui.QTabWidget(self.dockWidgetContents)
         self.tabWidget.setGeometry(QtCore.QRect(9, 100, 304, 401))
+        self.tabWidget.setMinimumSize(QtCore.QSize(300, 300))
         self.tabWidget.setObjectName(_fromUtf8("tabWidget"))
         self.tab1 = QtGui.QWidget()
         self.tab1.setObjectName(_fromUtf8("tab1"))
@@ -148,18 +146,32 @@ class Ui_SearchEPSGCRS_dock(object):
         self.txtResults2.setMinimumSize(QtCore.QSize(270, 50))
         self.txtResults2.setObjectName(_fromUtf8("txtResults2"))
         self.tabWidget.addTab(self.tab2, _fromUtf8(""))
+        self.widget = QtGui.QWidget(self.dockWidgetContents)
+        self.widget.setGeometry(QtCore.QRect(9, 511, 301, 65))
+        self.widget.setObjectName(_fromUtf8("widget"))
+        self.gridLayout_2 = QtGui.QGridLayout(self.widget)
+        self.gridLayout_2.setMargin(0)
+        self.gridLayout_2.setObjectName(_fromUtf8("gridLayout_2"))
+        self.aboutButton = QtGui.QPushButton(self.widget)
+        self.aboutButton.setMinimumSize(QtCore.QSize(270, 30))
+        self.aboutButton.setObjectName(_fromUtf8("aboutButton"))
+        self.gridLayout_2.addWidget(self.aboutButton, 0, 0, 1, 1)
+        self.helpButton = QtGui.QPushButton(self.widget)
+        self.helpButton.setMinimumSize(QtCore.QSize(270, 0))
+        self.helpButton.setObjectName(_fromUtf8("helpButton"))
+        self.gridLayout_2.addWidget(self.helpButton, 1, 0, 1, 1)
         SearchEPSGCRS_dock.setWidget(self.dockWidgetContents)
 
         self.retranslateUi(SearchEPSGCRS_dock)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(SearchEPSGCRS_dock)
 
     def retranslateUi(self, SearchEPSGCRS_dock):
         SearchEPSGCRS_dock.setWindowTitle(_translate("SearchEPSGCRS_dock", "Get formatted CRS", None))
         self.label.setText(_translate("SearchEPSGCRS_dock", "Type EPSG CRS code:", None))
+        self.txtCRS.setToolTip(_translate("SearchEPSGCRS_dock", "<html><head/><body><p>Type EPSG code or push button &quot;Get active layer...&quot;. </p></body></html>", None))
         self.txtCRS.setText(_translate("SearchEPSGCRS_dock", "25830", None))
         self.getEPSGActiveLayerButton.setText(_translate("SearchEPSGCRS_dock", "Get active layer EPSG CRS code", None))
-        self.aboutButton.setText(_translate("SearchEPSGCRS_dock", "About this plugin", None))
         self.label_2.setText(_translate("SearchEPSGCRS_dock", "Select output format:", None))
         self.comboCRS.setItemText(0, _translate("SearchEPSGCRS_dock", ".prettywkt", None))
         self.comboCRS.setItemText(1, _translate("SearchEPSGCRS_dock", ".wkt", None))
@@ -181,5 +193,7 @@ class Ui_SearchEPSGCRS_dock(object):
 "<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab1), _translate("SearchEPSGCRS_dock", "Formatted CRS", None))
         self.transfCRSButton.setText(_translate("SearchEPSGCRS_dock", "GET CRS TRANSFORMATIONS", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab2), _translate("SearchEPSGCRS_dock", "Transformations", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab2), _translate("SearchEPSGCRS_dock", "Transformations Info", None))
+        self.aboutButton.setText(_translate("SearchEPSGCRS_dock", "About this plugin", None))
+        self.helpButton.setText(_translate("SearchEPSGCRS_dock", "Help", None))
 

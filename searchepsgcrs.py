@@ -34,6 +34,7 @@ from searchepsgcrsdialog import SearchEpsgCrsDock
 import os.path
 import urllib
 import re
+import json
 
 
 class SearchEpsgCrs:
@@ -77,6 +78,7 @@ class SearchEpsgCrs:
         QObject.connect(self.dock.getEPSGActiveLayerButton, SIGNAL("clicked()"), self.setActLayerCRS)
         QObject.connect(self.dock.transfCRSButton, SIGNAL("clicked()"), self.getCRSResult2)
         QObject.connect(self.dock.aboutButton, SIGNAL("clicked()"), self.about)
+        QObject.connect(self.dock.helpButton, SIGNAL("clicked()"), self.getHelp)
 
     def unload(self):
         # Remove the plugin menu item and icon
@@ -141,33 +143,51 @@ class SearchEpsgCrs:
             content = url_open.read()
             
             json_results = json.loads(content)
-            
+    
             if json_results['number_result'] == 0:
-                return "---Error: Wrong EPSG code.---\n"
-
+                return "---No Results.---\nError: Wrong EPSG code.---\n"
+    
             else:
                 crs_transf = json_results['results'][0]['trans']
                 default_trans = json_results['results'][0]['default_trans']
-                txtTransf = 'No. of CRS transformations: %i\n' % (len(crs_transf))
+                crs_name = json_results['results'][0]['name']
+                crs_kind = json_results['results'][0]['kind']
+                crs_area = json_results['results'][0]['area']
+                txtTransf_str = 'CRS name: %s\n\nCRS kind: %s\n\nCRS area: %s\n\n No. of CRS transformations: %i\n'
+                txtTransf = txtTransf_str % (crs_name, crs_kind, crs_area, len(crs_transf))
+    
                 if len(crs_transf) > 0:
+                    txtTransf += '\nCRS Transformations list:\n'
                     for tr in crs_transf:
                         str_transf = '- %s / (Accuracy: %s)' % (tr['name'], str(tr['accuracy']))
                         if default_trans == tr['code_trans']:
                             str_transf += ' / DEFAULT'
-                        txtTransf += str_transf
+                        txtTransf += str_transf + '\n'
                     
-                    return txtTransf
+                return txtTransf
         
         except:
-            return "---Error: something didn't work---"
+            return "---Error: something didn't work---\nDo you have an Internet connection?"
     
     def about(self):
         QMessageBox.about(self.iface.mainWindow(),"About", 
             """
             Developed by Cayetano Benavent 2014.
             
-            This plugin uses EPSG.io website.
+            This plugin uses EPSG.io API website.
             The EPSG.io website is built around 
             the official EPSG database maintained 
             by OGP Geomatics Committee.
+            """)
+    
+    def getHelp(self):
+        QMessageBox.information(self.iface.mainWindow(),"Help", 
+            """
+            1) Type EPSG code or push button "Get active 
+            layer EPSG CRS code". 
+            
+            2) Push button "Get Formated CRS" in "Formatted 
+            CRS" tab or push button "Get CRS transformations" 
+            in "Transformations info" tab.
+            
             """)

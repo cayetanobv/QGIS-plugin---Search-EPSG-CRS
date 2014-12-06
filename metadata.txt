@@ -9,9 +9,9 @@
 
 
 [general]
-name=Search EPSG CRS Plugin
+name=Search & format EPSG CRS Plugin
 qgisMinimumVersion=2.0
-description=Search for a valid Coordinate Reference System (CRS) on the basis of an EPSG code. This plugin uses great website EPSG.io (http://epsg.io/). The EPSG.io website is built around the official EPSG database maintained by OGP Geomatics Committee.
+description=Plugin to search and format a coordinate reference system (CRS) in a wide variety of formats: prettywkt, wkt, mapnik, sql, esriwkt, js, proj4, gml, xml, geoserver, mapserver, etc. Searches are made on the basis of a valid EPSG code. The Plugin can also retrieve the available transformations list for a CRS as well as other basic information about the CRS, as area, type and official name. This plugin uses great website EPSG.io (http://epsg.io/). The EPSG.io website is built around the official EPSG database maintained by OGP Geomatics Committee.
 version=0.4
 author=Cayetano Benavent
 email=cayetanobv@gmail.com
@@ -29,14 +29,14 @@ changelog=
 	0.4 Major update. New GUI.
 
 # tags are comma separated with spaces allowed
-tags=CRS, EPSG, coordinate reference system, projection, geography, WKT, Proj4, Python
+tags=CRS, EPSG, coordinate reference system, projection, geography, WKT, Proj4, Python, format
 
 homepage=http://www.geographica.gs/#!/en/geographica/team
 tracker=
 repository=https://github.com/cayetanobv/QGIS-plugin---Search-EPSG-CRS
 icon=icon.png
 # experimental flag
-experimental=False
+experimental=True
 
 # deprecated flag (applies to the whole plugin, not just a single version
 deprecated=False

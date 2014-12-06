@@ -186,7 +186,7 @@ class SearchEpsgCrs:
             1) Type EPSG code or push button "Get active 
             layer EPSG CRS code". 
             
-            2) Push button "Get Formated CRS" in "Formatted 
+            2) Push button "Get Formatted CRS" in "Formatted 
             CRS" tab or push button "Get CRS transformations" 
             in "Transformations info" tab.
             

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_searchepsgcrs.ui'
 #
-# Created: Sat Dec  6 15:51:56 2014
+# Created: Sat Dec  6 16:24:04 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_SearchEPSGCRS_dock(object):
     def setupUi(self, SearchEPSGCRS_dock):
         SearchEPSGCRS_dock.setObjectName(_fromUtf8("SearchEPSGCRS_dock"))
-        SearchEPSGCRS_dock.resize(320, 614)
+        SearchEPSGCRS_dock.resize(320, 702)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -99,7 +99,7 @@ class Ui_SearchEPSGCRS_dock(object):
         self.txtResults1.setMaximumSize(QtCore.QSize(320, 1000))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Courier New"))
-        font.setPointSize(6)
+        font.setPointSize(10)
         font.setBold(False)
         font.setWeight(50)
         self.txtResults1.setFont(font)
@@ -145,16 +145,22 @@ class Ui_SearchEPSGCRS_dock(object):
         self.tabWidget.addTab(self.tab1, _fromUtf8(""))
         self.tab2 = QtGui.QWidget()
         self.tab2.setObjectName(_fromUtf8("tab2"))
+        self.gridLayout_3 = QtGui.QGridLayout(self.tab2)
+        self.gridLayout_3.setObjectName(_fromUtf8("gridLayout_3"))
         self.transfCRSButton = QtGui.QPushButton(self.tab2)
-        self.transfCRSButton.setGeometry(QtCore.QRect(10, 20, 270, 30))
         self.transfCRSButton.setMinimumSize(QtCore.QSize(270, 30))
         self.transfCRSButton.setMaximumSize(QtCore.QSize(270, 30))
         self.transfCRSButton.setObjectName(_fromUtf8("transfCRSButton"))
+        self.gridLayout_3.addWidget(self.transfCRSButton, 0, 0, 1, 1)
         self.txtResults2 = QtGui.QTextBrowser(self.tab2)
-        self.txtResults2.setGeometry(QtCore.QRect(10, 60, 270, 301))
         self.txtResults2.setMinimumSize(QtCore.QSize(270, 50))
         self.txtResults2.setMaximumSize(QtCore.QSize(320, 1000))
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Courier New"))
+        font.setPointSize(10)
+        self.txtResults2.setFont(font)
         self.txtResults2.setObjectName(_fromUtf8("txtResults2"))
+        self.gridLayout_3.addWidget(self.txtResults2, 1, 0, 1, 1)
         self.tabWidget.addTab(self.tab2, _fromUtf8(""))
         self.verticalLayout.addWidget(self.tabWidget)
         self.gridLayout_2 = QtGui.QGridLayout()
@@ -186,8 +192,8 @@ class Ui_SearchEPSGCRS_dock(object):
         self.txtResults1.setHtml(_translate("SearchEPSGCRS_dock", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Courier New\'; font-size:6pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt;\"><br /></span></p></body></html>", None))
+"</style></head><body style=\" font-family:\'Courier New\'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", None))
         self.comboCRS.setItemText(0, _translate("SearchEPSGCRS_dock", ".prettywkt", None))
         self.comboCRS.setItemText(1, _translate("SearchEPSGCRS_dock", ".wkt", None))
         self.comboCRS.setItemText(2, _translate("SearchEPSGCRS_dock", ".esriwkt", None))

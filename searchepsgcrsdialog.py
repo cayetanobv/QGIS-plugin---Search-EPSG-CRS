@@ -33,6 +33,7 @@ class SearchEpsgCrsDock(QtGui.QDockWidget, Ui_SearchEPSGCRS_dock):
         self.setupUi(self)
 
     def setTextBrowser(self, output):
+        self.txtResults1.setStyleSheet("font: 9pt;")
         self.txtResults1.setText(output)
 
     def clearTextBrowser(self):

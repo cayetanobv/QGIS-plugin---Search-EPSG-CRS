@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>320</width>
-    <height>614</height>
+    <height>702</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -180,7 +180,7 @@
           <property name="font">
            <font>
             <family>Courier New</family>
-            <pointsize>6</pointsize>
+            <pointsize>10</pointsize>
             <weight>50</weight>
             <bold>false</bold>
            </font>
@@ -201,8 +201,8 @@
            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Courier New'; font-size:6pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Courier New'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="acceptRichText">
            <bool>true</bool>
@@ -322,53 +322,49 @@ p, li { white-space: pre-wrap; }
        <attribute name="title">
         <string>Transformations Info</string>
        </attribute>
-       <widget class="QPushButton" name="transfCRSButton">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>20</y>
-          <width>270</width>
-          <height>30</height>
-         </rect>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>270</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>270</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>GET CRS TRANSFORMATIONS</string>
-        </property>
-       </widget>
-       <widget class="QTextBrowser" name="txtResults2">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>60</y>
-          <width>270</width>
-          <height>301</height>
-         </rect>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>270</width>
-          <height>50</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>320</width>
-          <height>1000</height>
-         </size>
-        </property>
-       </widget>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="0">
+         <widget class="QPushButton" name="transfCRSButton">
+          <property name="minimumSize">
+           <size>
+            <width>270</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>270</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>GET CRS TRANSFORMATIONS</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QTextBrowser" name="txtResults2">
+          <property name="minimumSize">
+           <size>
+            <width>270</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>320</width>
+            <height>1000</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Courier New</family>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>

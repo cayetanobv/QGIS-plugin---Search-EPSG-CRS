@@ -62,13 +62,13 @@ class SearchEpsgCrs:
         # Create action that will start plugin configuration
         self.action = QAction(
             QIcon(":/plugins/searchepsgcrs/icon.png"),
-            u"Search EPSG CRS...", self.iface.mainWindow())
+            u"Search and format EPSG CRS...", self.iface.mainWindow())
         # connect the action to the run method
         self.action.triggered.connect(self.run)
 
         # Add toolbar button and menu item
         self.iface.addToolBarIcon(self.action)
-        self.iface.addPluginToMenu(u"&Search EPSG CRS Plugin", self.action)
+        self.iface.addPluginToMenu(u"&Search and format EPSG CRS Plugin", self.action)
         
         # Add dock dialog to the right
         self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock)
@@ -82,7 +82,7 @@ class SearchEpsgCrs:
 
     def unload(self):
         # Remove the plugin menu item and icon
-        self.iface.removePluginMenu(u"&Search EPSG CRS Plugin", self.action)
+        self.iface.removePluginMenu(u"&Search and format EPSG CRS Plugin", self.action)
         self.iface.removeToolBarIcon(self.action)
 
     def run(self):

@@ -20,7 +20,8 @@ To install it you can use the QGIS plugin manager from the Plugins menu.
 QGIS 2.0 or later.
 
 ##About author
-Developed by Cayetano Benavent 2014.
+Developed by Cayetano Benavent (2014).
+GIS Analyst at Geographica.
 
 http://www.geographica.gs/#!/en/geographica/team
 

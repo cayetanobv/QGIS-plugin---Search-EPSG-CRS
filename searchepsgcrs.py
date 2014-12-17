@@ -32,7 +32,8 @@ import resources_rc
 from searchepsgcrsdialog import SearchEpsgCrsDock
 # Other imports
 import os.path
-import urllib
+import urllib2
+import socket
 import re
 import json
 
@@ -114,8 +115,9 @@ class SearchEpsgCrs:
             EPSG = self.dock.getTextCRS()
             CRS_format = self.dock.getComboCRS()
             url = "http://epsg.io/%s%s" % (EPSG, CRS_format)
-            
-            url_open = urllib.urlopen(url)
+            # timeout (seconds)
+            timeout = 2
+            url_open = urllib2.urlopen(url, timeout=timeout)
             content = url_open.read()
     
             if re.search("Sorry, that page cannot be found", content):
@@ -129,45 +131,56 @@ class SearchEpsgCrs:
             
             return "\t--CRS in %s--\n\n%s\n" % (CRS_format, content)
 
+        except socket.timeout as e:
+            return "---Sorry, but something didn't work.\nError: %r\ntimeout is %i s" % (e, timeout)
         except:
-            # You must have an Internet connection
-            return "---Error: something didn't work---\nDo you have an Internet connection?"
+            return "---Sorry, but something didn't work.\n---Maybe a wrong EPSG code."
+    
 
     def searchCRSTransform(self):
         # this function does the CRS transform search using EPSG.io API
         try:
             EPSG = self.dock.getTextCRS()
             url = "http://epsg.io/?q=%s&format=json&trans=1" % (EPSG)
-    
-            url_open = urllib.urlopen(url)
+            # timeout (seconds)
+            timeout = 2
+            url_open = urllib2.urlopen(url, timeout=timeout)
             content = url_open.read()
             
             json_results = json.loads(content)
     
-            if json_results['number_result'] == 0:
-                return "---No Results.---\nError: Wrong EPSG code.---\n"
-    
-            else:
-                crs_transf = json_results['results'][0]['trans']
-                default_trans = json_results['results'][0]['default_trans']
-                crs_name = json_results['results'][0]['name']
-                crs_kind = json_results['results'][0]['kind']
-                crs_area = json_results['results'][0]['area']
-                txtTransf_str = 'CRS name: %s\n\nCRS kind: %s\n\nCRS area: %s\n\n No. of CRS transformations: %i\n'
-                txtTransf = txtTransf_str % (crs_name, crs_kind, crs_area, len(crs_transf))
-    
-                if len(crs_transf) > 0:
-                    txtTransf += '\nCRS Transformations list:\n'
-                    for tr in crs_transf:
-                        str_transf = '- %s / (Accuracy: %s)' % (tr['name'], str(tr['accuracy']))
-                        if default_trans == tr['code_trans']:
-                            str_transf += ' / DEFAULT'
-                        txtTransf += str_transf + '\n'
-                    
-                return txtTransf
+            if json_results:
+                if json_results['number_result'] == 0 or json_results['results'][0]['code'] != EPSG:
+                    return "---No Results.---\nError: Wrong EPSG code.---\n"
         
+                else:
+                    crs_transf = json_results['results'][0]['trans']
+                    default_trans = json_results['results'][0]['default_trans']
+                    crs_name = json_results['results'][0]['name']
+                    crs_kind = json_results['results'][0]['kind']
+                    crs_area = json_results['results'][0]['area']
+                    txtTransf_str = 'CRS name: %s\n\nCRS kind: %s\n\nCRS area: %s\n\n No. of CRS transformations: %i\n'
+                    txtTransf = txtTransf_str % (crs_name, crs_kind, crs_area, len(crs_transf))
+        
+                    if len(crs_transf) > 0:
+                        txtTransf += '\nCRS Transformations list:\n'
+                        for tr in crs_transf:
+                            nm = tr['name']
+                            cd = tr['code_trans']
+                            ac = str(tr['accuracy'])
+                            ar = tr['area']
+                            
+                            str_transf = '- %s (EPSG Trans: %s)/ (Accuracy: %s) Area: %s' % (nm, cd, ac, ar)
+                            if default_trans == tr['code_trans']:
+                                str_transf += ' / DEFAULT'
+                            txtTransf += str_transf + '\n\n'
+                        
+                    return txtTransf
+        
+        except socket.timeout as e:
+            return "---Sorry, but something didn't work.\nError: %r\ntimeout is %i s" % (e, timeout)
         except:
-            return "---Error: something didn't work---\nDo you have an Internet connection?"
+            return "---Sorry, but something didn't work.\n---Maybe a wrong EPSG code."
     
     def about(self):
         QMessageBox.about(self.iface.mainWindow(),"About", 

@@ -23,7 +23,7 @@ QGIS 2.0 or later.
 Developed by Cayetano Benavent (2014).
 GIS Analyst at Geographica.
 
-http://www.geographica.gs/#!/en/geographica/team
+http://www.geographica.gs
 
 ##License
 This program is free software; you can redistribute it and/or modify

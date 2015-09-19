@@ -70,7 +70,7 @@ class SearchEpsgCrs:
         # Add toolbar button and menu item
         self.iface.addToolBarIcon(self.action)
         self.iface.addPluginToMenu(u"&Search and format EPSG CRS Plugin", self.action)
-        
+
         # Add dock dialog to the right
         self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock)
 
@@ -93,7 +93,7 @@ class SearchEpsgCrs:
     def getCRSResult(self):
         self.dock.clearTextBrowser()
         self.dock.setTextBrowser(self.searchCRS())
-    
+
     def getCRSResult2(self):
         self.dock.clearTextBrowser2()
         self.dock.setTextBrowser2(self.searchCRSTransform())
@@ -107,19 +107,20 @@ class SearchEpsgCrs:
             self.dock.setTextCRS(crs[5:])
         else:
             # if no active layer in TOC...
-            QMessageBox.information(self.iface.mainWindow(),"Get active layer CRS", "No active layer in the Table of Contents.")
+            QMessageBox.information(self.iface.mainWindow(),"Get active layer CRS",
+                "No active layer in the Table of Contents.")
 
     def searchCRS(self):
         # this function does the CRS search using EPSG.io website
         try:
             EPSG = self.dock.getTextCRS()
             CRS_format = self.dock.getComboCRS()
-            url = "http://epsg.io/%s%s" % (EPSG, CRS_format)
+            url = "http://epsg.io/{0}{1}}".format(EPSG, CRS_format)
             # timeout (seconds)
             timeout = 2
             url_open = urllib2.urlopen(url, timeout=timeout)
             content = url_open.read()
-    
+
             if re.search("Sorry, that page cannot be found", content):
                 return "---Error: Wrong EPSG code.---\n"
             elif re.search("Something went wrong", content):
@@ -128,79 +129,82 @@ class SearchEpsgCrs:
                 return "---Error: Wrong EPSG code.---\n"
             elif not content:
                 return "---No content for this format---"
-            
+
             return "\t--CRS in %s--\n\n%s\n" % (CRS_format, content)
 
         except socket.timeout as e:
             return "---Sorry, but something didn't work.\nError: %r\ntimeout is %i s" % (e, timeout)
         except:
             return "---Sorry, but something didn't work.\n---Maybe a wrong EPSG code."
-    
+
 
     def searchCRSTransform(self):
         # this function does the CRS transform search using EPSG.io API
         try:
             EPSG = self.dock.getTextCRS()
-            url = "http://epsg.io/?q=%s&format=json&trans=1" % (EPSG)
+            url = "http://epsg.io/?q={0}&format=json&trans=1".format(EPSG)
             # timeout (seconds)
             timeout = 2
             url_open = urllib2.urlopen(url, timeout=timeout)
             content = url_open.read()
-            
+
             json_results = json.loads(content)
-    
+
             if json_results:
-                if json_results['number_result'] == 0 or json_results['results'][0]['code'] != EPSG:
+                n_rslts = json_results.get('number_result', 0)
+                jsn_rslts = json_results.get('results')
+                rslts_epsg = jsn_rslts[0].get('code')
+                if n_rslts == 0 or rslts_epsg != EPSG:
                     return "---No Results.---\nError: Wrong EPSG code.---\n"
-        
+
                 else:
-                    crs_transf = json_results['results'][0]['trans']
-                    default_trans = json_results['results'][0]['default_trans']
-                    crs_name = json_results['results'][0]['name']
-                    crs_kind = json_results['results'][0]['kind']
-                    crs_area = json_results['results'][0]['area']
+                    crs_transf = jsn_rslts[0].get('trans')
+                    default_trans = jsn_rslts[0].get('default_trans')
+                    crs_name = jsn_rslts[0].get('name')
+                    crs_kind = jsn_rslts[0].get('kind')
+                    crs_area = jsn_rslts[0].get('area')
                     txtTransf_str = 'CRS name: %s\n\nCRS kind: %s\n\nCRS area: %s\n\n No. of CRS transformations: %i\n'
                     txtTransf = txtTransf_str % (crs_name, crs_kind, crs_area, len(crs_transf))
-        
+
                     if len(crs_transf) > 0:
                         txtTransf += '\nCRS Transformations list:\n'
                         for tr in crs_transf:
-                            nm = tr['name']
-                            cd = tr['code_trans']
-                            ac = str(tr['accuracy'])
-                            ar = tr['area']
-                            
+                            nm = tr.get('name')
+                            cd = tr.get('code_trans')
+                            ac = str(tr.get('accuracy'))
+                            ar = tr.get('area')
+
                             str_transf = '- %s (EPSG Trans: %s)/ (Accuracy: %s) Area: %s' % (nm, cd, ac, ar)
-                            if default_trans == tr['code_trans']:
+                            if default_trans == tr.get('code_trans'):
                                 str_transf += ' / DEFAULT'
                             txtTransf += str_transf + '\n\n'
-                        
+
                     return txtTransf
-        
+
         except socket.timeout as e:
             return "---Sorry, but something didn't work.\nError: %r\ntimeout is %i s" % (e, timeout)
         except:
             return "---Sorry, but something didn't work.\n---Maybe a wrong EPSG code."
-    
+
     def about(self):
-        QMessageBox.about(self.iface.mainWindow(),"About", 
+        QMessageBox.about(self.iface.mainWindow(),"About",
             """
             Developed by Cayetano Benavent 2014.
-            
+
             This plugin uses EPSG.io API website.
-            The EPSG.io website is built around 
-            the official EPSG database maintained 
+            The EPSG.io website is built around
+            the official EPSG database maintained
             by OGP Geomatics Committee.
             """)
-    
+
     def getHelp(self):
-        QMessageBox.information(self.iface.mainWindow(),"Help", 
+        QMessageBox.information(self.iface.mainWindow(),"Help",
             """
-            1) Type EPSG code or push button "Get active 
-            layer EPSG CRS code". 
-            
-            2) Push button "Get Formatted CRS" in "Formatted 
-            CRS" tab or push button "Get CRS transformations" 
+            1) Type EPSG code or push button "Get active
+            layer EPSG CRS code".
+
+            2) Push button "Get Formatted CRS" in "Formatted
+            CRS" tab or push button "Get CRS transformations"
             in "Transformations info" tab.
-            
+
             """)

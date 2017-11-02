@@ -110,16 +110,22 @@ class SearchEpsgCrs:
             QMessageBox.information(self.iface.mainWindow(),"Get active layer CRS",
                 "No active layer in the Table of Contents.")
 
+    @staticmethod
+    def __getContent(url, timeout=2):
+        # timeout (seconds)
+        req = urllib2.Request(url)
+        req.add_header('User-Agent', 'Custom User-Agent')
+        url_open = urllib2.urlopen(req, timeout=timeout)
+        return url_open.read()
+
     def searchCRS(self):
         # this function does the CRS search using EPSG.io website
         try:
             EPSG = self.dock.getTextCRS()
             CRS_format = self.dock.getComboCRS()
-            url = "http://epsg.io/{0}{1}}".format(EPSG, CRS_format)
-            # timeout (seconds)
-            timeout = 2
-            url_open = urllib2.urlopen(url, timeout=timeout)
-            content = url_open.read()
+            url = "http://epsg.io/{0}{1}".format(EPSG, CRS_format)
+
+            content = self.__getContent(url)
 
             if re.search("Sorry, that page cannot be found", content):
                 return "---Error: Wrong EPSG code.---\n"
@@ -143,10 +149,8 @@ class SearchEpsgCrs:
         try:
             EPSG = self.dock.getTextCRS()
             url = "http://epsg.io/?q={0}&format=json&trans=1".format(EPSG)
-            # timeout (seconds)
-            timeout = 2
-            url_open = urllib2.urlopen(url, timeout=timeout)
-            content = url_open.read()
+
+            content = self.__getContent(url)
 
             json_results = json.loads(content)
 
